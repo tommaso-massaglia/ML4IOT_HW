@@ -1,0 +1,4 @@
+python kws_latency.py --mfcc --model c.zlib --resize 32 --rate 8000 --length 320
+--stride 160 --bins 30 --coeff 10
+
+python kws_latency.py --mfcc --model b.zlib --resize 32 --rate 8000 --length 320 --stride 160 --bins 30 --coeff 10

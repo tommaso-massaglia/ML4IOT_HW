@@ -1,0 +1,23 @@
+DSCNNmodel_mfccs = ks.Sequential([
+    ks.Input(shape=(shape_mfccs)),
+    layers.Conv2D(filters=128, kernel_size=[3, 3], strides=[2,1], use_bias=False),
+    layers.BatchNormalization(momentum=0.1),
+    layers.ReLU(),
+    layers.DepthwiseConv2D(kernel_size=[3,3], strides=[1,1], use_bias=False),
+    layers.Conv2D(filters=128, kernel_size=[1, 1], strides=[1,1], use_bias=False),
+    layers.BatchNormalization(momentum=0.1),
+    layers.ReLU(),
+    layers.DepthwiseConv2D(kernel_size=[3,3], strides=[1,1], use_bias=False),
+    layers.Conv2D(filters=128, kernel_size=[1, 1], strides=[1,1], use_bias=False),
+    layers.BatchNormalization(momentum=0.1),
+    layers.ReLU(),
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(len(commands))
+])
+
+pruning_params = {
+      'pruning_schedule': tfmot.sparsity.keras.PolynomialDecay(initial_sparsity=0.0,
+                                                               final_sparsity=0.2,
+                                                               begin_step=end_step/2,
+                                                               end_step=end_step)
+}
